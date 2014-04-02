@@ -1,3 +1,5 @@
+require 'json'
+
 def make_arrays(datafile)
   output = []
   input = File.read(datafile).split("\n")
@@ -7,15 +9,17 @@ def make_arrays(datafile)
   output
 end
 
-def make_hash(datafile)
+def make_hash(datafile, outputfile)
   hash = {}
   make_arrays('planetdata.txt').each do |line|
     unless hash[line[0]]
       hash[line[0]] = {}
     end
-    hash[line[0]][line[1]] = {x: line[2], y: line[3], z: line[4]}
+    hash[line[0]][line[1]] = {'x' => line[2], 'y' => line[3], 'z' => line[4]}
   end
-  puts hash
+  open(outputfile, 'r+') { |f|
+    f.puts hash.to_json
+  }
 end
 
-make_hash('planetdata.txt')
+make_hash('planetdata.txt', 'planethash.json')
