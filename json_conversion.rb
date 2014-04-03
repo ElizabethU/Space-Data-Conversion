@@ -9,17 +9,17 @@ def make_arrays(datafile)
   output
 end
 
-def make_hash(datafile, outputfile)
-  hash = {}
+def make_hash(satellite_name, datafile, outputfile)
+  hash = {name: satellite_name, years: {} }
   make_arrays('planetdata.txt').each do |line|
-    unless hash[line[0]]
-      hash[line[0]] = {}
+    unless hash[:years][line[0]]
+      hash[:years][line[0]] = {}
     end
-    hash[line[0]][line[1]] = {'x' => line[2], 'y' => line[3], 'z' => line[4]}
+    hash[:years][line[0]][line[1]] = {'x' => line[2], 'y' => line[3], 'z' => line[4]}
   end
   open(outputfile, 'r+') { |f|
     f.puts hash.to_json
   }
 end
 
-make_hash('planetdata.txt', 'planethash.json')
+make_hash("Artemis P-1", 'planetdata.txt', 'planethash.json')
