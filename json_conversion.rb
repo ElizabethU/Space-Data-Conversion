@@ -18,6 +18,7 @@ def make_hash(satellite_name, datafile, outputfile)
     hash[:years][line[0]][line[1]] = {'x' => line[2], 'y' => line[3], 'z' => line[4]}
   end
   open(outputfile, 'a') { |f|
+    f.puts ''
     f.puts hash.to_json
   }
 end
