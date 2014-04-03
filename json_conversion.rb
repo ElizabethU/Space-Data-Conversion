@@ -22,4 +22,4 @@ def make_hash(satellite_name, datafile, outputfile)
   }
 end
 
-make_hash("Dawn", 'planetdata.txt', 'planethash.json')
+make_hash("Galileo", 'planetdata.txt', 'planethash.json')
