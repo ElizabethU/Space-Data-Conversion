@@ -19,8 +19,9 @@ class Datagetter
       outer_space_form.stop_day   = body[4]
       outer_space_form.radiobuttons_with(name: 'activity')[3].check
       i += 1
-      @page = agent.submit(outer_space_form)
-      @page = agent.@page.links.first.click
+      @new_page = agent.submit(outer_space_form)
+      @new_page = @new_page.links.first.click
+      @new_page.body.scan(/(\d{4}) \s*?(\d{1,3})/)
     end
   end
 end
