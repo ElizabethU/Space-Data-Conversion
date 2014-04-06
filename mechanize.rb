@@ -21,7 +21,8 @@ class Datagetter
       i += 1
       @new_page = agent.submit(outer_space_form)
       @new_page = @new_page.links.first.click
-      @new_page.body.scan(/(\d{4}) \s*?(\d{1,3})/)
+      space_array = @new_page.body.scan(/(\d{4}) \s*?(\d{1,3})\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)/)
     end
   end
+  #/\w+@\w+\.\w+/i
 end
