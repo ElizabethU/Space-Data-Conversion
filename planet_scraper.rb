@@ -5,7 +5,6 @@ class planet_data_getter
     @agent = Mechanize.new
     @page = @agent.get('http://omniweb.gsfc.nasa.gov/coho/helios/planet.html')
     @planet_array = ["Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Earth", "Mercury"]
-    #@table = (@page.root / :pre).text.scan(/\s*(.*?)\s*(\d{4})  (\d{3}) - (\d{4})  (\d{3})/)
   end
 
   def submit_form
