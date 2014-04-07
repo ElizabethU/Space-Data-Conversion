@@ -22,7 +22,7 @@ class Datagetter
       puts "Link #{i}"
       puts @new_page = @new_page.links[0]
       space_array = @new_page.body.scan(/(\d{4}) \s*?(\d{1,3})\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)/)
-      make_hash(body[0], space_array, 'planethash2.json')
+      make_hash(body[i], space_array, 'planethash2.json')
     end
   end
   
