@@ -36,15 +36,15 @@ class Planet_data_getter
   end
 
   def y_cartesian(hg_lat, au)
-    Math.sin(hg_lat.to_f * Math::PI/180) * au.to_f
+    Math.sin(hg_lon.to_f * Math::PI/180) * au.to_f
   end
 
   def x_cartesian(hg_lat, au)
-    Math.cos(hg_lat.to_f * Math::PI/180) * au.to_f
+    Math.cos(hg_lon.to_f * Math::PI/180) * au.to_f
   end
 
   def z_cartesian(hg_lon, au)
-    Math.sin(hg_lon.to_f * Math::PI/180) * au.to_f
+    Math.sin(hg_lat.to_f * Math::PI/180) * au.to_f
   end
 end
 
