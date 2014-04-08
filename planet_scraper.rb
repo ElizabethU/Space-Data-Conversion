@@ -1,6 +1,6 @@
 require 'mechanize'
 
-class planet_data_getter
+class Planet_data_getter
   def initialize
     @agent = Mechanize.new
     @page = @agent.get('http://omniweb.gsfc.nasa.gov/coho/helios/planet.html')
@@ -8,7 +8,7 @@ class planet_data_getter
   end
 
   def submit_form
-    for n in range(0..8)
+    for n in (0..8)
       planet_form = @page.form
       planet_form.field_with(name: 'planet').options[n].select
       planet_form.radiobuttons_with(name: 'activity')[0].check
@@ -18,7 +18,7 @@ class planet_data_getter
       planet_form.stop_day   = 365
       @new_page = @agent.submit(planet_form)
       data = (@new_page.root / :pre).text.scan(/(\d{4}) \s*?(\d{1,3})\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)\s*?(\+|-?[0-9]+\.[0-9]+)/)
-      make_hash(@planet_array[i], data, )
+      make_hash(@planet_array[n], data, 'trighash.json')
     end
   end
 
@@ -28,10 +28,26 @@ class planet_data_getter
       unless hash[:years][line[0]]
         hash[:years][line[0]] = {}
       end
-      hash[:years][line[0]][line[1]] = {'x' => line[2], 'y' => line[3], 'z' => line[4]}
+      hash[:years][line[0]][line[1]] = {'x' => x_cartesian(line[5], line[2]), 'y' => y_cartesian(line[5], line[2]), 'z' => z_cartesian(line[7], line[2])}
     end
     open(outputfile, 'a') { |f|
       f.puts hash.to_json
     }
   end
+
+  def y_cartesian(hg_lat, au)
+    Math.sin(hg_lat.to_f * Math::PI/180) * au.to_f
+  end
+
+  def x_cartesian(hg_lat, au)
+    Math.cos(hg_lat.to_f * Math::PI/180) * au.to_f
+  end
+
+  def z_cartesian(hg_lon, au)
+    Math.sin(hg_lon.to_f * Math::PI/180) * au.to_f
+  end
 end
+
+planet_data = Planet_data_getter.new
+
+planet_data.submit_form
