@@ -21,7 +21,6 @@ class Datagetter
 
   def submit_form
     @table.each do |body|
-      puts "Looking up coordinates for #{body[0]}"
       outer_space_form = @page.form 
       object = outer_space_form.field_with(name: 'object').options.find { |option| option.text.strip == body[0] }
       unless object
@@ -38,7 +37,6 @@ class Datagetter
 
       @new_page = @agent.submit(outer_space_form)
       data_link = @new_page.links[0]
-      puts "Data at: #{data_link.uri}"
       if data_link.uri.scheme == "mailto"
         pp outer_space_form
         exit
