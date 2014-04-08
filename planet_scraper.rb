@@ -8,7 +8,7 @@ class Planet_data_getter
   end
 
   def submit_form
-    for n in (0..8)
+    for n in (0..7)
       planet_form = @page.form
       planet_form.field_with(name: 'planet').options[n].select
       planet_form.radiobuttons_with(name: 'activity')[0].check
@@ -28,22 +28,22 @@ class Planet_data_getter
       unless hash[:years][line[0]]
         hash[:years][line[0]] = {}
       end
-      hash[:years][line[0]][line[1]] = {'x' => x_cartesian(line[5], line[2]), 'y' => y_cartesian(line[5], line[2]), 'z' => z_cartesian(line[7], line[2])}
+      hash[:years][line[0]][line[1]] = {'x' => x_cartesian(line[7], line[2]), 'y' => y_cartesian(line[7], line[2]), 'z' => z_cartesian(line[5], line[2])}
     end
     open(outputfile, 'a') { |f|
       f.puts hash.to_json
     }
   end
 
-  def y_cartesian(hg_lat, au)
+  def y_cartesian(hg_lon, au)
     Math.sin(hg_lon.to_f * Math::PI/180) * au.to_f
   end
 
-  def x_cartesian(hg_lat, au)
+  def x_cartesian(hg_lon, au)
     Math.cos(hg_lon.to_f * Math::PI/180) * au.to_f
   end
 
-  def z_cartesian(hg_lon, au)
+  def z_cartesian(hg_lat, au)
     Math.sin(hg_lat.to_f * Math::PI/180) * au.to_f
   end
 end
