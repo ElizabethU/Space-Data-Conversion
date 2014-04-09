@@ -17,6 +17,9 @@ class Datagetter
     mars[0] = "Mars Science Lab."
     mars = @table.find {|name,| name == "VENUS (PVO *)" }
     mars[0] = "VENUS (PVO)"
+    @table.slice!(15)
+    @table.slice!(21)
+    @table.slice!(24)
   end
 
   def submit_form
