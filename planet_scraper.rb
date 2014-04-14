@@ -4,7 +4,7 @@ class Planet_data_getter
   def initialize
     @agent = Mechanize.new
     @page = @agent.get('http://omniweb.gsfc.nasa.gov/coho/helios/planet.html')
-    @planet_array = ["Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Earth", "Mercury"]
+    @planet_array = ["venus", "mars", "jupiter", "saturn", "uranus", "neptune", "earth", "mercury"]
   end
 
   def submit_form

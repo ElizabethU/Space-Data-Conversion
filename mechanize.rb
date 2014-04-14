@@ -51,7 +51,7 @@ class Datagetter
   end
   
   def make_hash(satellite_name, array, outputfile)
-    hash = {name: satellite_name, years: {} }
+    hash = {name: satellite_name.gsub(/ /, '_').downcase!, years: {} }
     array.each do |line|
       unless hash[:years][line[0]]
         hash[:years][line[0]] = {}
