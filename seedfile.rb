@@ -25,6 +25,13 @@ class Seedmaker
   def format_to_hash
     array = []
     @table.each do |body|
-      {name: body[0], diameter: .5, color: '#ffffff' }
+      array << {name: body[0].gsub(/ /, '_').downcase!, diameter: 0.5, color: '#ffffff', x: 0, y: 0, z: 0, current: true }
+    end
+    open('planetdata.txt', 'a') { |f|
+      f.puts array
+    }
   end
 end
+
+seeds = Seedmaker.new
+seeds.format_to_hash
